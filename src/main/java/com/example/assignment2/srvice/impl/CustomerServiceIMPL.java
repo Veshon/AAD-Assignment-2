@@ -1,6 +1,7 @@
 package com.example.assignment2.srvice.impl;
 
 import com.example.assignment2.dao.CustomerDAO;
+import com.example.assignment2.dto.CustomerStatus;
 import com.example.assignment2.dto.impl.CustomerDTO;
 import com.example.assignment2.entity.impl.CustomerEntity;
 import com.example.assignment2.exception.DataPersistException;
@@ -10,6 +11,8 @@ import com.example.assignment2.util.Mapping;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -30,5 +33,25 @@ public class CustomerServiceIMPL implements CustomerService {
         if(saveCustomer == null){
             throw new DataPersistException("Customer not saved");
         }
+    }
+
+    @Override
+    public List<CustomerDTO> getAllCustomers() {
+        return customerMapping.asCustomerDTOList(customerDAO.findAll());
+    }
+
+    @Override
+    public CustomerStatus getCustomer(String cusId) {
+        return null;
+    }
+
+    @Override
+    public void deleteCustomer(String cusId) {
+
+    }
+
+    @Override
+    public void updateCustomer(String cusId, CustomerDTO customerDTO) {
+
     }
 }
