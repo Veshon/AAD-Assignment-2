@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Item")
 
-public class ItemIMPL {
+public class ItemEntity {
 
     @Id
     private String ItemCode;
     private String ItemDesc;
-    private int ItemQty;
-    private double price;
+    private String ItemQty;
+    private String price;
 }

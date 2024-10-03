@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Customer")
 
-public class CustomerIMPL {
+public class CustomerEntity {
 
     @Id
     private String cusId;
     private String cusName;
     private String cusAddress;
-    private int cusTeleNo;
+    private String cusTeleNo;
 }

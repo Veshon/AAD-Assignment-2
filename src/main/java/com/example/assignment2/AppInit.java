@@ -1,4 +1,4 @@
-package com.example.assignment2.util;
+package com.example.assignment2;
 
 import com.example.assignment2.config.WebAppConfig;
 import com.example.assignment2.config.WebAppRootConfig;
