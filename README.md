@@ -1,3 +1,5 @@
+FrontEnd of this Project :
+
 Project Description 
 
 This project is a comprehensive Point of Sale (POS) system designed using modern technologies such as Spring Web MVC, Spring Data JPA, Hibernate, MySQL, and AJAX. It aims to provide a seamless experience for managing sales transactions in a retail environment. The system offers robust features including customer management, item management, and order processing, catering to the core requirements of any retail business.
