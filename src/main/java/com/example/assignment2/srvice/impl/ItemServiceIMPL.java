@@ -38,7 +38,7 @@ public class ItemServiceIMPL implements ItemService {
 
     @Override
     public List<ItemDTO> getAllItems() {
-        return null;
+        return itemMapping.asItemDTOList(itemDAO.findAll());
     }
 
     @Override
