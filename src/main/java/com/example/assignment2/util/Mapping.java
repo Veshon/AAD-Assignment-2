@@ -1,7 +1,9 @@
 package com.example.assignment2.util;
 
 import com.example.assignment2.dto.impl.CustomerDTO;
+import com.example.assignment2.dto.impl.ItemDTO;
 import com.example.assignment2.entity.impl.CustomerEntity;
+import com.example.assignment2.entity.impl.ItemEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +30,15 @@ public class Mapping {
         return modelMapper.map(customerEntities, new TypeToken<List<CustomerDTO>>() {}.getType());
     }
 
-/*    public NoteDTO toNoteDTO(NoteEntity noteEntity) {
-        return modelMapper.map(noteEntity, NoteDTO.class);
+    public ItemDTO toItemEntity(ItemEntity itemEntity) {
+        return modelMapper.map(itemEntity, ItemDTO.class);
     }
 
-    public NoteEntity toNoteEntity(NoteDTO noteDTO) {
-        return modelMapper.map(noteDTO, NoteEntity.class);
+    public ItemEntity toItemEntity(ItemDTO itemDTO) {
+        return modelMapper.map(itemDTO, ItemEntity.class);
     }
 
-    public List<NoteDTO> asNoteDTOList(List<NoteEntity> noteEntities) {
-        return modelMapper.map(noteEntities, new TypeToken<List<NoteDTO>>() {}.getType());
-    }*/
+    public List<ItemDTO> asItemDTOList(List<ItemEntity> itemEntities) {
+        return modelMapper.map(itemEntities, new TypeToken<List<ItemDTO>>() {}.getType());
+    }
 }

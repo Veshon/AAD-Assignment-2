@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface ItemService {
     void saveItem(ItemDTO itemDTO);
-
     List<ItemDTO> getAllItems();
     ItemStatus getItem(String itemCode);
     void deleteItem(String itemCode);

@@ -30,7 +30,7 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public void saveCustomer(CustomerDTO customerDTO) {
-        customerDTO.setCusId(AppUtil.generateNoteId());
+        customerDTO.setCusId(AppUtil.generateCustomerId());
         CustomerEntity saveCustomer =
                 customerDAO.save(customerMapping.toCustomerEntity(customerDTO));
         if(saveCustomer == null){
