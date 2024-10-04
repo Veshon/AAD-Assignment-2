@@ -1,5 +1,6 @@
 package com.example.assignment2.srvice.impl;
 
+import com.example.assignment2.customStatusCode.SelectedUserAndNoteErrorStatus;
 import com.example.assignment2.dao.ItemDAO;
 import com.example.assignment2.dto.ItemStatus;
 import com.example.assignment2.dto.impl.ItemDTO;
@@ -43,7 +44,12 @@ public class ItemServiceIMPL implements ItemService {
 
     @Override
     public ItemStatus getItem(String itemCode) {
-        return null;
+        if(itemDAO.existsById(itemCode)){
+            var selectedItem = itemDAO.getReferenceById(itemCode);
+            return itemMapping.toItemDTO(selectedItem);
+        }else {
+            return new SelectedUserAndNoteErrorStatus(2, "Selected item not found");
+        }
     }
 
     @Override

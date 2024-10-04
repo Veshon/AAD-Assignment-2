@@ -30,7 +30,7 @@ public class Mapping {
         return modelMapper.map(customerEntities, new TypeToken<List<CustomerDTO>>() {}.getType());
     }
 
-    public ItemDTO toItemEntity(ItemEntity itemEntity) {
+    public ItemDTO toItemDTO(ItemEntity itemEntity) {
         return modelMapper.map(itemEntity, ItemDTO.class);
     }
 

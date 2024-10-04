@@ -1,5 +1,8 @@
 package com.example.assignment2.controller;
 
+import com.example.assignment2.customStatusCode.SelectedUserAndNoteErrorStatus;
+import com.example.assignment2.dto.CustomerStatus;
+import com.example.assignment2.dto.ItemStatus;
 import com.example.assignment2.dto.impl.CustomerDTO;
 import com.example.assignment2.dto.impl.ItemDTO;
 import com.example.assignment2.exception.DataPersistException;
@@ -11,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("api/v1/items")
@@ -37,5 +41,16 @@ public class ItemController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ItemDTO> getAllItems() {
         return itemService.getAllItems();
+    }
+
+    @GetMapping(value = "/{itemCode}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ItemStatus getSelectedItem(@PathVariable("itemCode") String itemCode) {
+        String regexForUserID = "^ITEM-[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$";
+        Pattern regexPattern = Pattern.compile(regexForUserID);
+        var regexMatcher = regexPattern.matcher(itemCode);
+        if (!regexMatcher.matches()) {
+            return new SelectedUserAndNoteErrorStatus(1, "Item Code is not valid");
+        }
+        return itemService.getItem(itemCode);
     }
 }
