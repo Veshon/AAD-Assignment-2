@@ -18,5 +18,5 @@ public class CustomerEntity {
     private String cusName;
     private String cusAddress;
     @Column(unique = true)
-    private String cusTeleNo;
+    private int cusTeleNo;
 }

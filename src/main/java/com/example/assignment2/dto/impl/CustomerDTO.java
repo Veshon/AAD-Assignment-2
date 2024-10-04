@@ -14,6 +14,6 @@ public class CustomerDTO implements CustomerStatus {
     private String cusId;
     private String cusName;
     private String cusAddress;
-    private String cusTeleNo;
+    private int cusTeleNo;
 
 }
