@@ -1,4 +1,6 @@
 package com.example.assignment2.dto;
 
-public interface CustomerStatus {
+import java.io.Serializable;
+
+public interface CustomerStatus extends Serializable, SuperDTO {
 }

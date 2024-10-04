@@ -1,5 +1,6 @@
 package com.example.assignment2.srvice.impl;
 
+import com.example.assignment2.customStatusCode.SelectedUserAndNoteErrorStatus;
 import com.example.assignment2.dao.CustomerDAO;
 import com.example.assignment2.dto.CustomerStatus;
 import com.example.assignment2.dto.impl.CustomerDTO;
@@ -42,7 +43,12 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public CustomerStatus getCustomer(String cusId) {
-        return null;
+        if(customerDAO.existsById(cusId)){
+            var selectedUser = customerDAO.getReferenceById(cusId);
+            return customerMapping.toCustomerDTO(selectedUser);
+        }else {
+            return new SelectedUserAndNoteErrorStatus(2, "Selected customer not found");
+        }
     }
 
     @Override
