@@ -8,6 +8,7 @@ import com.example.assignment2.entity.impl.CustomerEntity;
 import com.example.assignment2.entity.impl.ItemEntity;
 import com.example.assignment2.exception.CustomerNotFoundException;
 import com.example.assignment2.exception.DataPersistException;
+import com.example.assignment2.exception.ItemNotFoundException;
 import com.example.assignment2.srvice.ItemService;
 import com.example.assignment2.util.AppUtil;
 import com.example.assignment2.util.Mapping;
@@ -58,7 +59,7 @@ public class ItemServiceIMPL implements ItemService {
     public void deleteItem(String itemCode) {
         Optional<ItemEntity> foundItem = itemDAO.findById(itemCode);
         if (!foundItem.isPresent()) {
-            throw new CustomerNotFoundException("Item not found");
+            throw new ItemNotFoundException("Item not found");
         }else {
             itemDAO.deleteById(itemCode);
         }
@@ -66,6 +67,13 @@ public class ItemServiceIMPL implements ItemService {
 
     @Override
     public void updateItem(String itemCode, ItemDTO itemDTO) {
-
+        Optional<ItemEntity> findItem = itemDAO.findById(itemCode);
+        if (!findItem.isPresent()) {
+            throw new ItemNotFoundException("Item not found");
+        }else {
+            findItem.get().setItemDesc(itemDTO.getItemDesc());
+            findItem.get().setItemQty(itemDTO.getItemQty());
+            findItem.get().setPrice(itemDTO.getPrice());
+        }
     }
 }

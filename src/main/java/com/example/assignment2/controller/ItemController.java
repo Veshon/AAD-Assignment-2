@@ -5,6 +5,7 @@ import com.example.assignment2.dto.CustomerStatus;
 import com.example.assignment2.dto.ItemStatus;
 import com.example.assignment2.dto.impl.CustomerDTO;
 import com.example.assignment2.dto.impl.ItemDTO;
+import com.example.assignment2.exception.CustomerNotFoundException;
 import com.example.assignment2.exception.DataPersistException;
 import com.example.assignment2.exception.ItemNotFoundException;
 import com.example.assignment2.srvice.ItemService;
@@ -73,4 +74,24 @@ public class ItemController {
         }
     }
 
+    @PutMapping(value = "/{itemCode}")
+    public ResponseEntity<Void> updateNote(@PathVariable ("itemCode") String itemCode,
+                                           @RequestBody ItemDTO updatedItemDTO){
+        String regexForUserID = "^ITEM-[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$";
+        Pattern regexPattern = Pattern.compile(regexForUserID);
+        var regexMatcher = regexPattern.matcher(itemCode);
+        try {
+            if(!regexMatcher.matches() || updatedItemDTO == null){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            itemService.updateItem(itemCode,updatedItemDTO);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (ItemNotFoundException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
