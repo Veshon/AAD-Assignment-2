@@ -6,6 +6,7 @@ import com.example.assignment2.dto.ItemStatus;
 import com.example.assignment2.dto.impl.ItemDTO;
 import com.example.assignment2.entity.impl.CustomerEntity;
 import com.example.assignment2.entity.impl.ItemEntity;
+import com.example.assignment2.exception.CustomerNotFoundException;
 import com.example.assignment2.exception.DataPersistException;
 import com.example.assignment2.srvice.ItemService;
 import com.example.assignment2.util.AppUtil;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -54,7 +56,12 @@ public class ItemServiceIMPL implements ItemService {
 
     @Override
     public void deleteItem(String itemCode) {
-
+        Optional<ItemEntity> foundItem = itemDAO.findById(itemCode);
+        if (!foundItem.isPresent()) {
+            throw new CustomerNotFoundException("Item not found");
+        }else {
+            itemDAO.deleteById(itemCode);
+        }
     }
 
     @Override

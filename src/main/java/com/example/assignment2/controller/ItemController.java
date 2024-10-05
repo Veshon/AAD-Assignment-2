@@ -6,6 +6,7 @@ import com.example.assignment2.dto.ItemStatus;
 import com.example.assignment2.dto.impl.CustomerDTO;
 import com.example.assignment2.dto.impl.ItemDTO;
 import com.example.assignment2.exception.DataPersistException;
+import com.example.assignment2.exception.ItemNotFoundException;
 import com.example.assignment2.srvice.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,4 +54,23 @@ public class ItemController {
         }
         return itemService.getItem(itemCode);
     }
+
+    @DeleteMapping(value = "/{itemCode}")
+    public ResponseEntity<Void> deleteNote(@PathVariable ("itemCode") String itemCode){
+        String regexForUserID = "^ITEM-[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$";
+        Pattern regexPattern = Pattern.compile(regexForUserID);
+        var regexMatcher = regexPattern.matcher(itemCode);
+        try {
+            if (!regexMatcher.matches()) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            itemService.deleteItem(itemCode);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (ItemNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
