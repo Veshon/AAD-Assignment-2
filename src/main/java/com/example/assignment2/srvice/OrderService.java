@@ -7,6 +7,4 @@ import org.springframework.data.domain.jaxb.SpringDataJaxb;
 public interface OrderService {
     void saveOrder(OrderDTO orderDTO);
     void deleteOrder(String orderId);
-
-
 }

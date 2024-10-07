@@ -1,5 +1,6 @@
 package com.example.assignment2.entity.impl;
 
+import com.example.assignment2.entity.SuperEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Item")
 
-public class ItemEntity {
+public class ItemEntity implements SuperEntity {
 
     @Id
     private String itemCode;
