@@ -17,9 +17,9 @@ import lombok.NoArgsConstructor;
 public class ItemEntity {
 
     @Id
-    private String ItemCode;
+    private String itemCode;
     @Column(unique = true)
-    private String ItemDesc;
-    private String ItemQty;
+    private String itemDesc;
+    private String itemQty;
     private String price;
 }

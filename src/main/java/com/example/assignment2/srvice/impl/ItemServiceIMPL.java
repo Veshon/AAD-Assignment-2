@@ -30,12 +30,13 @@ public class ItemServiceIMPL implements ItemService {
     @Autowired
     public Mapping itemMapping;
 
+
     @Override
     public void saveItem(ItemDTO itemDTO) {
         itemDTO.setItemCode(AppUtil.generateItemId());
-        ItemEntity saveItem =
+        ItemEntity savedItem =
                 itemDAO.save(itemMapping.toItemEntity(itemDTO));
-        if(saveItem == null){
+        if(savedItem == null){
             throw new DataPersistException("Item not saved");
         }
     }

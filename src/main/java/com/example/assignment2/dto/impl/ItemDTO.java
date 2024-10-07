@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 
 public class ItemDTO implements ItemStatus {
 
-    private String ItemCode;
-    private String ItemDesc;
-    private String ItemQty;
+    private String itemCode;
+    private String itemDesc;
+    private String itemQty;
     private String price;
 
 }
