@@ -1,9 +1,6 @@
 package com.example.assignment2.entity.impl;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,15 +15,15 @@ public class OrderEntity {
 
     @Id
     private String orderId;
-    @Column(unique = true)
+    @JoinColumn(name = "cusId",nullable = false)
     private String cusId;
-    @Column(unique = true)
-    private String itemId;
-    private int qtyOnHand;
+    @JoinColumn(name = "itemCode",nullable = false)
+    private String itemCode;
+    private String qtyOnHand;
     private String cusName;
     private String itemDesc;
     private int qty;
-    private double price;
-    private double total;
+    private String price;
+    private String total;
 }
 
