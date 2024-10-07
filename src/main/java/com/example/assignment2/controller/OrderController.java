@@ -1,5 +1,7 @@
 package com.example.assignment2.controller;
 
+import com.example.assignment2.customStatusCode.SelectedUserAndNoteErrorStatus;
+import com.example.assignment2.dto.ItemStatus;
 import com.example.assignment2.dto.OrderStatus;
 import com.example.assignment2.dto.impl.ItemDTO;
 import com.example.assignment2.dto.impl.OrderDTO;
@@ -12,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 @RestController
@@ -53,5 +56,21 @@ public class OrderController {
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<OrderDTO> getAllOrders() {
+        return orderService.getAllOrders();
+    }
+
+    @GetMapping(value = "/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public OrderStatus getSelectedOrder(@PathVariable("orderId") String orderId) {
+        String regexForUserID = "^ORDER-[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$";
+        Pattern regexPattern = Pattern.compile(regexForUserID);
+        var regexMatcher = regexPattern.matcher(orderId);
+        if (!regexMatcher.matches()) {
+            return new SelectedUserAndNoteErrorStatus(1, "Order Id is not valid");
+        }
+        return orderService.getOrder(orderId);
     }
 }

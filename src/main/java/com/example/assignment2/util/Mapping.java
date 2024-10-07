@@ -52,7 +52,7 @@ public class Mapping {
         return modelMapper.map(orderDTO, OrderEntity.class);
     }
 
-    public List<ItemDTO> asOrderDTOList(List<OrderEntity> orderEntities) {
+    public List<OrderDTO> asOrderDTOList(List<OrderEntity> orderEntities) {
         return modelMapper.map(orderEntities, new TypeToken<List<OrderDTO>>() {}.getType());
     }
 }

@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 
 public class WebAppRootConfig {
-    @Bean //Giving the class control to the spring. That's not made by the user
+    @Bean
     public ModelMapper modelMapper(){
         return new ModelMapper();
     }

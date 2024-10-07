@@ -1,7 +1,11 @@
 package com.example.assignment2.srvice.impl;
 
+import com.example.assignment2.customStatusCode.SelectedUserAndNoteErrorStatus;
 import com.example.assignment2.dao.ItemDAO;
 import com.example.assignment2.dao.OrderDAO;
+import com.example.assignment2.dto.ItemStatus;
+import com.example.assignment2.dto.OrderStatus;
+import com.example.assignment2.dto.impl.ItemDTO;
 import com.example.assignment2.dto.impl.OrderDTO;
 import com.example.assignment2.entity.impl.ItemEntity;
 import com.example.assignment2.entity.impl.OrderEntity;
@@ -14,6 +18,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,4 +50,21 @@ public class OrderServiceIMPL implements OrderService {
             orderDAO.deleteById(orderId);
         }
     }
+
+    @Override
+    public List<OrderDTO> getAllOrders() {
+        return orderMapping.asOrderDTOList(orderDAO.findAll());
+
+    }
+
+    @Override
+    public OrderStatus getOrder(String orderId) {
+        if(orderDAO.existsById(orderId)){
+            var selectedOrder = orderDAO.getReferenceById(orderId);
+            return orderMapping.toOrderDTO(selectedOrder);
+        }else {
+            return new SelectedUserAndNoteErrorStatus(2, "Selected order not found");
+        }
+    }
+
 }
