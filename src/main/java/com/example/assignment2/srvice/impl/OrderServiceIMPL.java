@@ -15,6 +15,7 @@ import com.example.assignment2.srvice.OrderService;
 import com.example.assignment2.util.AppUtil;
 import com.example.assignment2.util.Mapping;
 import jakarta.transaction.Transactional;
+import org.hibernate.query.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +26,13 @@ import java.util.Optional;
 @Transactional
 
 public class OrderServiceIMPL implements OrderService {
+
     @Autowired
     public OrderDAO orderDAO;
 
     @Autowired
     public Mapping orderMapping;
+
 
     @Override
     public void saveOrder(OrderDTO orderDTO) {
@@ -42,6 +45,11 @@ public class OrderServiceIMPL implements OrderService {
     }
 
     @Override
+    public List<OrderDTO> getAllOrders() {
+        return orderMapping.asOrderDTOList(orderDAO.findAll());
+    }
+
+    @Override
     public void deleteOrder(String orderId) {
         Optional<OrderEntity> foundOrder = orderDAO.findById(orderId);
         if (!foundOrder.isPresent()) {
@@ -50,21 +58,4 @@ public class OrderServiceIMPL implements OrderService {
             orderDAO.deleteById(orderId);
         }
     }
-
-    @Override
-    public List<OrderDTO> getAllOrders() {
-        return orderMapping.asOrderDTOList(orderDAO.findAll());
-
-    }
-
-    @Override
-    public OrderStatus getOrder(String orderId) {
-        if(orderDAO.existsById(orderId)){
-            var selectedOrder = orderDAO.getReferenceById(orderId);
-            return orderMapping.toOrderDTO(selectedOrder);
-        }else {
-            return new SelectedUserAndNoteErrorStatus(2, "Selected order not found");
-        }
-    }
-
 }

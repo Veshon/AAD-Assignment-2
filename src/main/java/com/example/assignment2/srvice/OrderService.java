@@ -10,8 +10,7 @@ import java.util.List;
 
 public interface OrderService {
     void saveOrder(OrderDTO orderDTO);
-    void deleteOrder(String orderId);
     List<OrderDTO> getAllOrders();
-    OrderStatus getOrder(String orderId);
+    void deleteOrder(String orderId);
 
 }

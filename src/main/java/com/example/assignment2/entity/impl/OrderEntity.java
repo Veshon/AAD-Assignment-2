@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Orders")
 
-public class OrderEntity implements SuperEntity {
+public class OrderEntity implements SuperEntity{
 
     @Id
     private String orderId;
@@ -25,7 +25,7 @@ public class OrderEntity implements SuperEntity {
     private String qtyOnHand;
     private String cusName;
     private String itemDesc;
-    private int qty;
+    private String qty;
     private String price;
     private String total;
 }
